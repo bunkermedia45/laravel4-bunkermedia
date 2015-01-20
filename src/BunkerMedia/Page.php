@@ -17,7 +17,6 @@ class Page {
         }
         self::title($title);
         self::h1($title);
-        self::menuitem($menuitem);
     }
 
     static function page_data() {
