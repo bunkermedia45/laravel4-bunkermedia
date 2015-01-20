@@ -103,7 +103,7 @@ class Js extends File {
      * @return string
      */
     function __toString() {
-        return trim($this->get_external() . PHP_EOL . $this->getInline() . PHP_EOL . $this->get_onload());
+        return trim($this->getExternal() . PHP_EOL . $this->getInline() . PHP_EOL . $this->getOnload());
     }
 
     function getLink($js, $condition = null) {
@@ -153,7 +153,7 @@ class Js extends File {
                     //соберем билд в первый раз
                     $build = [];
                     foreach ($js as $url) {
-                        $_js     = $this->getSource($url);
+                        $_js     = file_get_contents($url);
                         $_js     = $this->prepare($_js, Config::get('staticfiles.js.external.min'));
                         $build[] = $_js;
                     }
@@ -189,7 +189,7 @@ class Js extends File {
      * Только инлайн
      * @return <type>
      */
-    function get_inline($as_html = true) {
+    function getInline($as_html = true) {
         if (!$as_html) {
             return $this->js_inline;
         }
@@ -197,20 +197,17 @@ class Js extends File {
             return '';
         $js_code = '';
         foreach ($this->js_inline as $js) {
-            $js_code .= $this->prepare($js, $this->get_need_min_inline());
+            $js_code .= $this->prepare($js, Config::get('staticfiles.js.inline.min'));
         }
-        $js_code = trim($this->prepare($js_code, $this->get_need_min_inline()));
         if (!$js_code)
             return '';
-        if (!$this->get_need_build_inline()) {
-            return '<script type="text/javascript">
-' . trim($js_code) . '
-</script>';
+        if (!Config::get('staticfiles.js.inline.build')) {
+            return '<script type="text/javascript">' . PHP_EOL . trim($js_code) . PHP_EOL . '</script>';
         }
         //если требуется собирать инлайн скрипты в один внешний файл
         $build_name = $this->makeFileName($this->js_inline, 'js/inline', 'js');
-        $this->require_build($build_name, $js);
-        return $this->get_link($this->buildUrl($build_name)) . PHP_EOL;
+        $this->requireBuild($build_name, $js);
+        return $this->getLink($this->buildUrl($build_name)) . PHP_EOL;
     }
 
 
