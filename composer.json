@@ -1,0 +1,43 @@
+{
+    "name": "bunkermedia/laravel4",
+    "description": "Helper package for Laravel 4",
+    "keywords": ["laravel", "twig", "quickform2"],
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Alexey Berdnikov",
+            "email": "aberdnikov@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "laravel/framework": "4.2.*",
+        "way/generators": "~2.0",
+        "laravelbook/ardent": "dev-master",
+        "cartalyst/sentry": "2.1.*",
+        "barryvdh/laravel-ide-helper": "1.*",
+        "rydurham/sentinel": "~1.4",
+        "greggilbert/recaptcha": "dev-master",
+        "bitw/larauth": "1.0.*@dev",
+        "orangehill/iseed": "dev-master",
+        "rcrowe/twigbridge": "*",
+        "laravelrus/localized-carbon": "dev-master",
+        "barryvdh/laravel-debugbar": "*",
+        "fzaninotto/faker": "*",
+        "ivanlemeshev/laravel-cyrillic-slug": "*",
+        "pear/html_quickform2": "~2.0.2",
+        "pear/pear_exception": "dev-master",
+        "pear/html_common2": "dev-master"     
+	},
+    "require-dev": {
+        "mockery/mockery": "dev-master",
+        "illuminate/console": "4.x",
+        "illuminate/filesystem": "4.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "BunkerMedia": "src/"
+        ]
+    },
+    "minimum-stability": "dev"
+}
