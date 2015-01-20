@@ -27,7 +27,7 @@
         "ivanlemeshev/laravel-cyrillic-slug": "*",
         "pear/html_quickform2": "~2.0.2",
         "innogames/cssmin": "*",
-        "werkint/jsmin": "*",
+        "linkorb/jsmin-php": "*",
         "pear/pear_exception": "dev-master",
         "pear/html_common2": "dev-master"     
 	},
