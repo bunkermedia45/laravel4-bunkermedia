@@ -26,7 +26,7 @@
         "fzaninotto/faker": "*",
         "ivanlemeshev/laravel-cyrillic-slug": "*",
         "pear/html_quickform2": "~2.0.2",
-        "innogames/cssmin": "dev-master",
+        "innogames/cssmin": "*",
         "pear/pear_exception": "dev-master",
         "pear/html_common2": "dev-master"     
 	},
