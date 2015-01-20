@@ -37,7 +37,7 @@
     "autoload": {
         "psr-0": {
             "BunkerMedia": "src/"
-        ]
+        }
     },
     "minimum-stability": "dev"
 }
