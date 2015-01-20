@@ -89,6 +89,8 @@ class Js extends File {
      * было добавлять в цикле и не бояться дублей
      */
     function addOnload($js, $id = null) {
+        $this->needJquery();
+
         if ($id) {
             $this->js_onload[$id] = $js;
         }
@@ -152,13 +154,17 @@ class Js extends File {
                 if (!file_exists($build_file)) {
                     //соберем билд в первый раз
                     $build = [];
+                    print '<pre>';
                     foreach ($js as $url) {
                         $_js     = file_get_contents($url);
-                        $_js     = $this->prepare($_js, Config::get('staticfiles.js.external.min'));
-                        $build[] = $_js;
+                        $_js     = $this->prepare($_js, (mb_strpos($url, '.min.') === false) && Config::get('staticfiles.js.external.min'));
+                        $build[] = "/**********************************************************************" . PHP_EOL;
+                        $build[] = '* ' . $url . PHP_EOL;
+                        $build[] = "**********************************************************************/" . PHP_EOL;
+                        $build[] = $_js . PHP_EOL . PHP_EOL;
                     }
                     //если требуется собирать инлайн скрипты в один внешний файл
-                    $this->requireBuild($build_name, implode("\n", $build));
+                    $this->requireBuild($build_name, implode("", $build));
                 }
                 $js_code .= $this->getLink($this->buildUrl($build_name), $condition) . PHP_EOL;
             }
@@ -179,7 +185,6 @@ class Js extends File {
 
     function prepare($source, $need_min) {
         if ($need_min) {
-            include_once \Kohana::find_file('vendor', 'jsmin');
             $source = \JSMin::minify($source);
         }
         return trim($source);
@@ -232,7 +237,7 @@ class Js extends File {
         }
         $js = 'jQuery(document).ready(function(){' . PHP_EOL . $js . '});';
         $js = $this->prepare($js, Config::get('staticfiles.onload.min'));
-        if (!Config::get('staticfiles.onload.build')) {
+        if (!Config::get('staticfiles.js.onload.build')) {
             $ret = '<script>' . PHP_EOL . $js . PHP_EOL . '</script>';
             return $ret;
         }

@@ -85,7 +85,6 @@ class Css extends File {
         if (\Config::get('staticfiles.css.min', false) && $min) {
             $source = self::minify($source);
         }
-        $source = str_replace('../', \Config::get('staticfiles.build_url'), $source);
         return trim($source);
     }
 
