@@ -2,6 +2,8 @@
 namespace BunkerMedia\Twig;
 
 use BunkerMedia\Helper\Text;
+use BunkerMedia\StaticFiles\Css;
+use BunkerMedia\StaticFiles\Js;
 use Twig_Extension;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
@@ -43,6 +45,8 @@ class Extension extends Twig_Extension {
             new Twig_SimpleFunction('arr_get', [$this, 'f_arr_get']),
             new Twig_SimpleFunction('config_get', [$this, 'f_config_get']),
             new Twig_SimpleFunction('plural', [$this, 'f_plural']),
+            new Twig_SimpleFunction('css', [$this, 'f_css']),
+            new Twig_SimpleFunction('js', [$this, 'f_js']),
             new Twig_SimpleFunction('max', 'max'),
             new Twig_SimpleFunction('min', 'min'),
             new Twig_SimpleFunction('is_array', 'is_array'),
@@ -153,7 +157,7 @@ class Extension extends Twig_Extension {
     }
 
     function f_formatter($method) {
-        $args  = array_slice(func_get_args(), 2);
+        $args = array_slice(func_get_args(), 2);
         return call_user_func_array([
             '\BunkerMedia\Formatter',
             $method
@@ -163,4 +167,12 @@ class Extension extends Twig_Extension {
     function f_config_get($key, $default = null) {
         return \Config::get($key, $default);
     }
-} 
+
+    function f_css() {
+        return Css::instance()->__toString();
+    }
+
+    function f_js() {
+        return Js::instance()->__toString();
+    }
+}
