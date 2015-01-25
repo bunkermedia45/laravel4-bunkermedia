@@ -2,7 +2,9 @@
 namespace BunkerMedia;
 
 use Illuminate\Support\Arr;
-
+/*
+Класс для управления страницей
+*/
 class Page {
     static           $breadcrumbs = [];
     static protected $values      = '';
